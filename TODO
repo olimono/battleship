@@ -1,0 +1,9 @@
+- [ ] Añadir lista ships placed a board
+en place_ship 
+boat obj > place ship var
+
+- [x] Añadir hundido a barco default = True
+- [x] Tengo q cambiar health por largo o “casillas” y poner una variable health a la q restar
+- [ ] Método tocar barco: de clase barco no? o clase tablero? 🤔 tiene q restar salud al barco . Al terminar lanza método hundir barco
+- [ ] Método hundir barco: comprueba si el barco tiene salud restante, si salud = 0 entonces barco hundido. Cambia variable barco hundido = true
+- [ ] Al terminar lanza método fin de juego. Método fin de juego: por cada barco en ships placed comprueba si están hundidos.
