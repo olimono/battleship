@@ -1,3 +1,12 @@
+welcome_message = "Welcome to Hundir la Flota. In this adventure, you will have 5 ships,\
+    each with a different lenght. \n Now you will have to place your ships. Each time, \
+        you will be asked for one starting coord and after that, you will have to choose \
+            whether the boat is vertical or horizontal and the boat will be atumatcally \
+                placed. If you place the boat in such a way that it crashes with a wall,\
+                    don't worry, you will be asked for the starting coord again so you can\
+                        place it correctly. Good luck!"
+
+
 lista_barcos = [
         {
             "length": 5, 

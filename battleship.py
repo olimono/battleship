@@ -4,22 +4,34 @@ from random import randint, random
 class Barco:
     full_coords = []
     wrecked = False
-    def __init__(self, length:int, boat_name:str, health:int, full_coords=None):
+    def __init__(self, length:int, boat_name:str, health:int):
         self.length = length
-        self.full_coords = full_coords
+        self.full_coords = []
         self.boat_name = boat_name
         self.health = health
         self.start_coord = None
         self.is_vertical = None
 
-    def get_coords(self, is_ai:bool, board:object):
+    #def get_coords(self, start_coord, is_vertical):
+    #    self.start_coord = start_coord
+    #    self.is_vertical = is_vertical
+
+
+    def ask_coords(self, is_ai:bool, board:object):
+        vertical_axis_index = None
+        horizontal_axis_index = None
         if is_ai:
-            self.start_coord = str(board.vertical_axis[randint(0,10)]) + str(board.horizontal_axis[randint(0,10)]) 
-            self.is_vertical = bool(random())
+            vertical_axis_index = randint(0,8)
+            horizontal_axis_index = randint(0,9)
+            print(vertical_axis_index, horizontal_axis_index)
+            self.start_coord = str(board.vertical_axis[vertical_axis_index]) + str(board.horizontal_axis[horizontal_axis_index]) 
+            is_vertical_boool = randint(0,1)
+            print(is_vertical_boool)
+            self.is_vertical = bool(is_vertical_boool)
 
         else:
             while self.start_coord == None:
-                self.input_coord = input(f"Now let's place your {self.boat_name}. It has {self.length} health. Enter its start coords (example 1A):")
+                self.input_coord = input(f"Now let's place your {self.boat_name}. It has {self.length} lenght. Enter its start coords (example 1A):")
                 if str(self.input_coord) in board.accepted_coords:
                     self.start_coord = self.input_coord
                 else:
@@ -74,17 +86,29 @@ class Board:
         """
         to full the water the places where to print the boats
         """
-        full_coords = []
+        full_coords = [] #aquí se colocarán las coordenadas completas del barco
         for row in self.matrix:
             if boat.start_coord in row:
                 index_column = row.index(boat.start_coord)
-                for n in range(boat.length):
-                    if boat.is_vertical == True:
-                        full_coords.append(self.matrix[self.matrix.index(row) + n][index_column])
-                    else:
-                        full_coords.append(self.matrix[self.matrix.index(row)][index_column + n])
+                try: #se comprueba que las coordenadas completas no se salen del tablero, si se salen, se vuelve a empezar en game prep
+                    for n in range(boat.length):
+                        if boat.is_vertical == True:
+                            full_coords.append(self.matrix[self.matrix.index(row) + n][index_column])
+                        else:
+                            full_coords.append(self.matrix[self.matrix.index(row)][index_column + n])
+                except:
+                    full_coords = []
+                                        
         for coord in full_coords:
-            self.water_full.append(coord)
+            #testing
+            print(coord, self.water_full) 
+            #comprueba que no haya otro barco en esa posición
+            if coord in self.water_full:
+                full_coords = []
+                
+        if full_coords != []:
+            for coord in full_coords:
+                self.water_full.append(coord)
             boat.full_coords = full_coords
 
         #boat.assign_coords(full_coords)
