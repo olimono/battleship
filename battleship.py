@@ -1,142 +1,71 @@
-from random import randint, random
+from random import randint
+import time
+import constants
+from player import *
+from board import *
+from ship import *
+
+class Game:
+    def __init__(self):
+        self.winner = None
+
+    def game_prep(self, player_ships:list, player:object):
+        print(player_ships)
+        for ship in player_ships:
+            print(player_ships)
+            print(ship)
+            while ship.full_coords == []:
+                ship.ask_coords(player.is_ai, player.board)
+                player.board.place_ship(ship) 
+            print(player.board)
+            time.sleep(1)
 
 
-class Barco:
-    full_coords = []
-    wrecked = False
-    def __init__(self, length:int, boat_name:str, health:int):
-        self.length = length
-        self.full_coords = []
-        self.boat_name = boat_name
-        self.health = health
-        self.start_coord = None
-        self.is_vertical = None
+    def start_game(self, player1_name):
+        print(constants.welcome_message)
+        time.sleep(1)
+        player1_name = player1_name
+        time.sleep(0.5)
+        print(f"Hi, {player1_name} Let's place your ships! \n")    
+        time.sleep(1)
+        self.board1 = Board(player1_name)
+        player1_ships = [Barco(**barco_dict) for barco_dict in constants.lista_barcos]
+        self.player1 = Player(player1_name, self.board1, False, player1_ships)
+        self.game_prep(player1_ships, self.player1)
 
-    #def get_coords(self, start_coord, is_vertical):
-    #    self.start_coord = start_coord
-    #    self.is_vertical = is_vertical
+        player2_name = "BIMO"
+        self.board2 = Board(player2_name)
+        player2_ships = [Barco(**barco_dict) for barco_dict in constants.lista_barcos]
+        self.player2 = Player(player2_name, self.board2, True, player2_ships)
+        self.game_prep(player2_ships, self.player2)
+        
+        print("¡Empieza el juego!")
 
-
-    def ask_coords(self, is_ai:bool, board:object):
-        vertical_axis_index = None
-        horizontal_axis_index = None
-        if is_ai:
+    def shoot_ship(self, player:Player, oponent:Player, oponent_board:Board, coord: str= None):
+        
+        if player.is_ai == False:
+            coord = input("Insert coordinate to shoot. (eg. 1A)")
+        else:
             vertical_axis_index = randint(0,8)
             horizontal_axis_index = randint(0,9)
             print(vertical_axis_index, horizontal_axis_index)
-            self.start_coord = str(board.vertical_axis[vertical_axis_index]) + str(board.horizontal_axis[horizontal_axis_index]) 
-            is_vertical_boool = randint(0,1)
-            print(is_vertical_boool)
-            self.is_vertical = bool(is_vertical_boool)
+            coord = str(oponent_board.vertical_axis[vertical_axis_index]) + str(oponent_board.horizontal_axis[horizontal_axis_index]) 
 
+        if coord in oponent_board.water_full:
+            print(oponent_board.water_full)
+            oponent_board.shot_ship.append(coord)
+            print(oponent_board.shot_ship)
+            for ship in oponent.ships_list:
+                if coord in ship.full_coords:
+                    ship.loose_health
         else:
-            while self.start_coord == None:
-                self.input_coord = input(f"Now let's place your {self.boat_name}. It has {self.length} lenght. Enter its start coords (example 1A):")
-                if str(self.input_coord) in board.accepted_coords:
-                    self.start_coord = self.input_coord
-                else:
-                    print("Oh, snap! seems like you have introduced a wrong coord. Remember to input first the number and second the letter.")
-            while self.is_vertical == None:
-                self.input_is_vertical = input("Now would you like to place it vertical or horizontal?")
-                if self.input_is_vertical.upper() in ["VERTICAL", "V", "HORIZONTAL", "H"]:
-                    self.is_vertical = self.input_is_vertical
-                else:
-                    print("Oh, snap! seems like you have introduced a wrong coord. Remember to input V for vertical or H for horizontal.")
-            if self.is_vertical.upper() in ["VERTICAL", "V"]:
-                self.is_vertical = True
-            elif self.is_vertical.upper() in ["HORIZONTAL", "H"]:
-                self.is_vertical = False
-        
-
-      
-class Board:
-    horizontal_axis = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-    vertical_axis = range(1, 10)
-    matrix = []
-    matrix_line = []
-    water_full = []
-    accepted_coords = []
+            oponent_board.shot_water.append(coord)
+            print(oponent_board.shot_water)
     
-    def __init__(self, player):
-        self.player = player
-        for n in self.vertical_axis:
-            matrix_line = [str(n) + l for l in self.horizontal_axis]
-            self.matrix.append(matrix_line)
-        for line in self.matrix:
-            for coord in line:
-                self.accepted_coords.append(str(coord))
-
-    def __repr__(self) -> str:
-        title_subline = "  -----------  "
-        header_row = "  "
-        for l in self.horizontal_axis:
-            header_row += l + "  "
-        lines_to_print = ""
-        for row in self.matrix:
-            line_to_print = str(self.matrix.index(row)+1)
-            for element in row:
-                if element in self.water_full:
-                    line_to_print += " x "
-                else:
-                    line_to_print += " - "
-            lines_to_print += line_to_print + "\n"
-        return "\n Mapa jugadora " + self.player + "\n" + title_subline + "\n" + header_row + "\n" + lines_to_print
-
-    def place_ship(self, boat:Barco):
-        """
-        to full the water the places where to print the boats
-        """
-        full_coords = [] #aquí se colocarán las coordenadas completas del barco
-        for row in self.matrix:
-            if boat.start_coord in row:
-                index_column = row.index(boat.start_coord)
-                try: #se comprueba que las coordenadas completas no se salen del tablero, si se salen, se vuelve a empezar en game prep
-                    for n in range(boat.length):
-                        if boat.is_vertical == True:
-                            full_coords.append(self.matrix[self.matrix.index(row) + n][index_column])
-                        else:
-                            full_coords.append(self.matrix[self.matrix.index(row)][index_column + n])
-                except:
-                    full_coords = []
-                                        
-        for coord in full_coords:
-            #testing
-            print(coord, self.water_full) 
-            #comprueba que no haya otro barco en esa posición
-            if coord in self.water_full:
-                full_coords = []
-                
-        if full_coords != []:
-            for coord in full_coords:
-                self.water_full.append(coord)
-            boat.full_coords = full_coords
-
-        #boat.assign_coords(full_coords)
-
-class Player:
-    def __init__(self, player_name, board, is_ai: bool, ships_list=None):
-        self.player_name = player_name
-        self.board = board
-        self.is_ai = is_ai
-        if ships_list == None:
-            self.ships_list = []
-        else:
-            self.ships_list = ships_list
-
-
-#print(board_player.place_ship(bs_player))
-#board_player.place_ship(cruiser_player)
-
-#print(carrier_player.full_coords)
-
-#def check_ship_place():
-#   while carrier_is_vertical == ""
-#       try:
-#           carrier_is_vertical in accepted_values_hv 
-#       except:
-#           raise ValueError
-#           carrier_is_vertical = ""
-#           print("It must be a value between x and x")
-
-
-
+    def turn(self, player:Player, oponent:Player, oponent_board:Board):
+        self.shoot_ship(player, oponent, oponent_board)
+        time.sleep(1)
+        oponent_board.oponent_board()
+        if oponent.wrecked_ships == 5:
+            self.winner = player
+            self.end_game()

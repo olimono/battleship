@@ -6,6 +6,8 @@ welcome_message = "Welcome to Hundir la Flota. In this adventure, you will have 
                     don't worry, you will be asked for the starting coord again so you can\
                         place it correctly. Good luck!"
 
+board_horizontal_axis = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+board_vertical_axis = range(1, 10)
 
 lista_barcos = [
         {
@@ -34,3 +36,4 @@ lista_barcos = [
             "health": 2,
             }
             ]
+
