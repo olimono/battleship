@@ -1,14 +1,14 @@
-- [ ] Añadir lista ships placed a board
+- [x] Añadir lista ships placed a board
 en place_ship 
-boat obj > place ship var
-
+boat obj > place ship var//// en lugar de esto, la lista ships la tiene el jugador
 - [x] Añadir hundido a barco default = True
 - [x] Tengo q cambiar health por largo o “casillas” y poner una variable health a la q restar
-- [ ] Método tocar barco: de clase barco no? o clase tablero? 🤔 tiene q restar salud al barco . Al terminar lanza método hundir barco
-- [ ] Método hundir barco: comprueba si el barco tiene salud restante, si salud == 0 entonces barco hundido. Cambia variable barco hundido = true
-- [ ] Al terminar lanza método fin de juego. Método fin de juego: por cada barco en ships placed comprueba si están hundidos.
-- [] Usar decorador property para calcular Health?
+- [x] Método tocar barco: de clase barco no? o clase tablero? 🤔 tiene q restar salud al barco . Al terminar lanza método hundir barco
+- [x] Método hundir barco: comprueba si el barco tiene salud restante, si salud == 0 entonces barco hundido. Cambia variable barco hundido == true
+- [x] Usar decorador property para calcular Health?
 - [x] Añadir IA a get_coords para que coloque los barcos de forma aleatoria 
 - [x] Mejorar el método q coloca los barcos para que no se puedan colocar contra las paredes.
 - [x] Mejorar el método q coloca los barcos para que no se puedan colocar donde ya hay otro barco.
+
 - [] Mejorar el método q coloca los barcos para que la IA si detecta un tocado dispare solo alrededor para hundir el barco.
+- [ ] Al terminar lanza método fin de juego. Método fin de juego: por cada barco en ships placed comprueba si están hundidos.

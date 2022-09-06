@@ -10,6 +10,11 @@ class Game:
         self.winner = None
 
     def game_prep(self, player_ships:list, player:object):
+        '''
+        gestiona toda la preparación del juego
+        obtener las coordenadas de los barcos y colocarlos
+        el while controla que full_coords no esté vacía, si está vacía es que se han colocado mal y se ha vaciado en el último paso
+        '''
         print(player_ships)
         for ship in player_ships:
             print(player_ships)
@@ -22,6 +27,9 @@ class Game:
 
 
     def start_game(self, player1_name):
+        '''
+        inicializa los objetos player, board y barcos y lanza el método game prep
+        '''
         print(constants.welcome_message)
         time.sleep(1)
         player1_name = player1_name

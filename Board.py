@@ -25,6 +25,10 @@ class Board:
                 self.accepted_coords.append(str(coord))
 
     def __repr__(self) -> str:
+        '''
+        printa el tablero del jugador 
+        (y de momento el de la IA también para que pueda monitorizar)
+        '''
         title_subline = "  -----------  "
         header_row = "  "
         for l in self.horizontal_axis:
@@ -42,7 +46,8 @@ class Board:
 
     def place_ship(self, boat:Barco):
         """
-        to full the water the places where to print the boats
+        coloca los barcos en el tablero de acuerdo con la start_coord e is_vertical
+        llena la variable water_full, y le devuelve full_coords al barco para que tenga sus coordenadas completas
         """
         full_coords = [] #aquí se colocarán las coordenadas completas del barco
         for row in self.matrix:
@@ -70,6 +75,10 @@ class Board:
             boat.full_coords = full_coords        
 
     def oponent_board(self):
+        '''
+        printa el tablero del oponente 
+        (que es diferente y se comporta diferente ya que no tiene que mostrar los barcos y va mostrando los disparos)
+        '''
         title_subline = "  -----------  "
         header_row = "  "
         for l in self.horizontal_axis:

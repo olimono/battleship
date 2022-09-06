@@ -12,6 +12,11 @@ class Barco:
         self.is_vertical = None
 
     def ask_coords(self, is_ai:bool, board:object):
+        '''
+        pide las coordenadas para los barcos en el caso del jugador
+        genera aleatoriamente las coordenadas de los barcos en el caso de la ia
+        no estoy segura de que pedir el input directamente aquí sea lo mejor
+        '''
         vertical_axis_index = None
         horizontal_axis_index = None
         if is_ai:
@@ -46,12 +51,18 @@ class Barco:
 
     @property
     def loose_health(self):
+        '''
+        método para perder salud cuando le disparan, si está a cero llama a hundir barco
+        '''
         self.health -= 1
         if self.health == 0:
             self.sink_ship
     
     @property
     def sink_ship(self):
+        '''
+        metodo para cambiar estado a hundido
+        '''
         self.wrecked = True
         print(f"{self.boat_name} sunk!")
 
