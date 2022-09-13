@@ -17,8 +17,6 @@ class Game:
         '''
         print(player_ships)
         for ship in player_ships:
-            print(player_ships)
-            print(ship)
             while ship.full_coords == []:
                 ship.ask_coords(player.is_ai, player.board)
                 player.board.place_ship(ship) 
@@ -60,7 +58,6 @@ class Game:
             coord = str(oponent_board.vertical_axis[vertical_axis_index]) + str(oponent_board.horizontal_axis[horizontal_axis_index]) 
 
         if coord in oponent_board.water_full:
-            print(oponent_board.water_full)
             oponent_board.shot_ship.append(coord)
             print(oponent_board.shot_ship)
             for ship in oponent.ships_list:

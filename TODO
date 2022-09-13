@@ -10,5 +10,5 @@ boat obj > place ship var//// en lugar de esto, la lista ships la tiene el jugad
 - [x] Mejorar el método q coloca los barcos para que no se puedan colocar contra las paredes.
 - [x] Mejorar el método q coloca los barcos para que no se puedan colocar donde ya hay otro barco.
 
-- [] Mejorar el método q coloca los barcos para que la IA si detecta un tocado dispare solo alrededor para hundir el barco.
+- [] Mejorar el método q dispara los barcos para que la IA si detecta un tocado dispare solo alrededor para hundir el barco.
 - [ ] Al terminar lanza método fin de juego. Método fin de juego: por cada barco en ships placed comprueba si están hundidos.

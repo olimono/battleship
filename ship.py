@@ -40,11 +40,6 @@ class Barco:
                 if self.input_is_vertical.upper() in ["VERTICAL", "V", "HORIZONTAL", "H"]:
                     self.is_vertical = self.input_is_vertical
                 else:
-                    print("Oh, snap! seems like you have introduced a wrong coord. Remember to input V for vertical or H for horizontal.")
-            if self.is_vertical.upper() in ["VERTICAL", "V"]:
-                self.is_vertical = True
-            elif self.is_vertical.upper() in ["HORIZONTAL", "H"]:
-                self.is_vertical = False
 
     def __repr__(self):
         return self.boat_name
