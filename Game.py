@@ -1,9 +1,9 @@
 from random import randint
 import time
 import constants
-from player import *
-from board import *
-from ship import *
+from Player import *
+from Board import *
+from Ship import *
 
 class Game:
     def __init__(self):
@@ -35,13 +35,13 @@ class Game:
         print(f"Hi, {player1_name} Let's place your ships! \n")    
         time.sleep(1)
         self.board1 = Board(player1_name)
-        player1_ships = [Barco(**barco_dict) for barco_dict in constants.lista_barcos]
+        player1_ships = [Ship(**barco_dict) for barco_dict in constants.lista_barcos]
         self.player1 = Player(player1_name, self.board1, False, player1_ships)
         self.game_prep(player1_ships, self.player1)
 
         player2_name = "BIMO"
         self.board2 = Board(player2_name)
-        player2_ships = [Barco(**barco_dict) for barco_dict in constants.lista_barcos]
+        player2_ships = [Ship(**barco_dict) for barco_dict in constants.lista_barcos]
         self.player2 = Player(player2_name, self.board2, True, player2_ships)
         self.game_prep(player2_ships, self.player2)
         

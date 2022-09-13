@@ -1,6 +1,6 @@
 from random import randint
 
-class Barco:
+class Ship:
     full_coords = []
     wrecked = False
     def __init__(self, length:int, boat_name:str, health:int):

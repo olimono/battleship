@@ -1,8 +1,8 @@
 import time
-import battleship as bs
-from player import *
-from board import *
-from ship import *
+import Game as bs
+from Player import *
+from Board import *
+from Ship import *
 
 
 if __name__ == '__main__':

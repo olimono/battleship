@@ -1,7 +1,7 @@
 import constants
-from player import *
-from board import *
-from ship import *
+from Player import *
+from Board import *
+from Ship import *
   
 class Board:
     horizontal_axis = constants.board_horizontal_axis
@@ -44,7 +44,7 @@ class Board:
             lines_to_print += line_to_print + "\n"
         return "\n Mapa jugadora " + self.player + "\n" + title_subline + "\n" + header_row + "\n" + lines_to_print
 
-    def place_ship(self, boat:Barco):
+    def place_ship(self, boat:Ship):
         """
         coloca los barcos en el tablero de acuerdo con la start_coord e is_vertical
         llena la variable water_full, y le devuelve full_coords al barco para que tenga sus coordenadas completas
